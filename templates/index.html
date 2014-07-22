@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Anvil News</title>
+
+    <script>
+      function vote(dir) {
+        return function(post_id) {
+          var xhr = new XMLHttpRequest();
+          xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4 && xhr.status == 200) {
+              var pointsElem = document.querySelector('[data-post="' + post_id + '"] .points');
+              pointsElem.innerText = '(' + xhr.responseText + ' points)';
+            }
+          };
+          xhr.open('POST', '/posts/' + post_id + '/' + dir, true);
+          xhr.send(null);
+        };
+      }
+      upvote = vote('upvote');
+      downvote = vote('downvote');
+    </script>
+
+    <style>
+      body {
+        font-family: Verdana;
+      }
+      #container {
+        width: 85%;
+        margin-left: auto;
+        margin-right: auto;
+        font-size: 10pt;
+        background-color: #f6f6ef;
+      }
+      header {
+        background-color: #e43b36;
+        font-weight: bold;
+        padding: 5px 10px;
+      }
+      a {
+        color: black;
+        text-decoration: none;
+      }
+      a:visited {
+        color: #828282;
+      }
+      .dn, .points {
+        font-size: 8pt;
+        color: #828282;
+      }
+      li {
+        margin-bottom: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container">
+      <header>
+        Anvil News
+      </header>
+      <ol>
+      {% for post in posts %}
+      <li data-post="{{ post.id }}"><a href="javascript:upvote({{ post.id }})">&#9650;</a>
+        <a href="javascript:downvote({{ post.id }})">&#9660;</a>
+        <a href="{{ post.url|e }}">{{ post.title|e }}</a>
+        <span class="dn">({{ post.hostname }})</span>
+        <span class="points">({{ post.score }} points)</span>
+      </li>
+      {% else %}
+      <li>No posts here!</li>
+      {% endfor %}
+      </ol>
+      <form action="{{ url_for('new_post') }}" method="post">
+        <input type="text" name="title" placeholder="Title">
+        <input type="text" name="url" placeholder="URL">
+        <input type="submit" value="Submit">
+      </form>
+    </div>
+  </body>
+</html>
