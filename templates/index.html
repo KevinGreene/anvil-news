@@ -53,7 +53,7 @@
         ol {
             margin: 0;
         }
-        li {
+        .post li {
             margin: 15px;
         }
         .submit {
@@ -63,8 +63,15 @@
         .submit .text {
             padding-bottom: 10px;
         }
-        .submit ul {
+        ul {
             list-style: none;
+        }
+        .submit ul {
+            margin: 0px;
+            padding: 0;
+        }
+        .submit ul li {
+          padding: 1px;
         }
         input[type=text] {
             width: 400px;
@@ -79,7 +86,7 @@
         </header>
         <ol>
             {% for post in posts %}
-            <li data-post="{{ post.id }}"><a href="javascript:upvote({{ post.id }})">&#9650;</a>
+            <li class="post" data-post="{{ post.id }}"><a href="javascript:upvote({{ post.id }})">&#9650;</a>
                 <a href="javascript:downvote({{ post.id }})">&#9660;</a>
                 <a href="{{ post.url|e }}">{{ post.title|e }}</a>
                 <span class="dn">({{ post.hostname }})</span>
