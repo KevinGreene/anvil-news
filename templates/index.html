@@ -52,17 +52,22 @@
         }
         ol {
             margin: 0;
-            padding: 15px;
         }
         li {
             margin: 15px;
         }
         .submit {
-            padding: 15px;
+            padding: 10px 40px;
             background-color: #e6e6df;
         }
-        .submit .title {
-          padding-bottom: 15px;
+        .submit .text {
+            padding-bottom: 10px;
+        }
+        .submit ul {
+            list-style: none;
+        }
+        input[type=text] {
+            width: 400px;
         }
     </style>
 </head>
@@ -85,11 +90,13 @@
             {% endfor %}
         </ol>
         <div class="submit">
-          <div class="title">Submit new link</div>
+          <div class="text">Submit new link</div>
           <form action="{{ url_for('new_post') }}" method="post">
-              <input type="text" name="title" placeholder="Title">
-              <input type="text" name="url" placeholder="URL">
-              <input type="submit" value="Submit">
+              <ul>
+                  <li><input type="text" name="title" placeholder="Title"></li>
+                  <li><input type="text" name="url" placeholder="URL"></li>
+                  <li><input type="submit" value="Submit"></li>
+              </ul>
           </form>
         </div>
     </div>
