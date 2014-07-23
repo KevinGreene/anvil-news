@@ -54,7 +54,7 @@
             margin: 0;
         }
         ol li {
-            padding: 10px;
+            margin: 15px;
         }
         .post li {
             margin: 15px;
@@ -79,6 +79,17 @@
         input[type=text] {
             width: 400px;
         }
+        .vote {
+            font-size: 12px;
+            color: #828282;
+        }
+        footer {
+            padding: 10px 40px;
+            border-top: 2px solid #e43b36;
+        }
+        footer .contact {
+            float: right;
+        }
     </style>
 </head>
 
@@ -89,8 +100,8 @@
         </header>
         <ol>
             {% for post in posts %}
-            <li class="post" data-post="{{ post.id }}"><a href="javascript:upvote({{ post.id }})">&#9650;</a>
-                <a href="javascript:downvote({{ post.id }})">&#9660;</a>
+            <li class="post" data-post="{{ post.id }}"><a class="vote" href="javascript:upvote({{ post.id }})">&#9650;</a>
+                <a class="vote" href="javascript:downvote({{ post.id }})">&#9660;</a>
                 <a href="{{ post.url|e }}">{{ post.title|e }}</a>
                 <span class="dn">({{ post.hostname }})</span>
                 <span class="points">({{ post.score }} points)</span>
@@ -100,7 +111,7 @@
             {% endfor %}
         </ol>
         <div class="submit">
-          <div class="text">Submit new link</div>
+          <div class="text">Submit</div>
           <form action="{{ url_for('new_post') }}" method="post">
               <ul>
                   <li><input type="text" name="title" placeholder="Title"></li>
@@ -109,6 +120,10 @@
               </ul>
           </form>
         </div>
+        <footer>
+            <a href="https://demo.anvilapp.io">demo.anvilapp.io</a>
+            <div class="contact"><a href="mailto:hello@anvilapp.io">Contact</a></div>
+        </footer>
     </div>
 </body>
 
